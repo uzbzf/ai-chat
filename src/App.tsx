@@ -1,0 +1,26 @@
+import { ChatWidget } from './components/widget/ChatWidget'
+import './styles/app.css'
+
+export default function App() {
+  return (
+    <>
+      <main className="landing">
+        <h1>Демо сайта с виджетом чата</h1>
+        <p>
+          Нажмите зелёную кнопку в правом нижнем углу — откроется панель в стиле
+          Jivo с ИИ-ассистентом на моках.
+        </p>
+        <p>
+          Переключатель темы в шапке чата сохраняется в localStorage. Для
+          проверки истории из моков откройте{' '}
+          <code>?seed=conv-2</code> в адресной строке.
+        </p>
+        <div className="hint">
+          Прокрутите страницу — виджет остаётся закреплённым поверх контента,
+          как на реальном лендинге.
+        </div>
+      </main>
+      <ChatWidget />
+    </>
+  )
+}

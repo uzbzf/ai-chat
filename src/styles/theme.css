@@ -1,0 +1,59 @@
+:root,
+[data-theme='light'] {
+  --chat-accent: #2dbd8f;
+  --chat-accent-hover: #26a87d;
+  --chat-bg-page: #f4f6f8;
+  --chat-bg-panel: #ffffff;
+  --chat-bg-messages: #eef1f4;
+  --chat-bg-header: var(--chat-accent);
+  --chat-text-on-accent: #ffffff;
+  --chat-text-primary: #1a1d21;
+  --chat-text-secondary: #5c6570;
+  --chat-border: #e2e6ea;
+  --chat-bubble-assistant: #f0f2f5;
+  --chat-bubble-user: var(--chat-accent);
+  --chat-bubble-user-text: #ffffff;
+  --chat-input-bg: #ffffff;
+  --chat-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --chat-launcher-shadow: 0 4px 16px rgba(45, 189, 143, 0.45);
+}
+
+[data-theme='dark'] {
+  --chat-accent: #3dd4a3;
+  --chat-accent-hover: #2dbd8f;
+  --chat-bg-page: #121418;
+  --chat-bg-panel: #1c1f26;
+  --chat-bg-messages: #14171d;
+  --chat-bg-header: #1a2e28;
+  --chat-text-on-accent: #e8fff5;
+  --chat-text-primary: #e8eaed;
+  --chat-text-secondary: #9aa3ad;
+  --chat-border: #2d333b;
+  --chat-bubble-assistant: #252a33;
+  --chat-bubble-user: var(--chat-accent);
+  --chat-bubble-user-text: #0d1f17;
+  --chat-input-bg: #252a33;
+  --chat-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --chat-launcher-shadow: 0 4px 16px rgba(61, 212, 163, 0.35);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  background: var(--chat-bg-page);
+  color: var(--chat-text-primary);
+  line-height: 1.5;
+}
