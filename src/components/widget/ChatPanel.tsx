@@ -16,6 +16,7 @@ type Props = {
   onMinimize: () => void
   onClose: () => void
   onSend: (text: string) => void
+  onSendVoice: (blob: Blob) => void
 }
 
 export function ChatPanel({
@@ -28,6 +29,7 @@ export function ChatPanel({
   onMinimize,
   onClose,
   onSend,
+  onSendVoice,
 }: Props) {
   return (
     <div className={styles.panel} role="dialog" aria-label="Чат с ассистентом">
@@ -44,7 +46,7 @@ export function ChatPanel({
         onSelect={onSend}
         disabled={isTyping}
       />
-      <ChatInput onSend={onSend} disabled={isTyping} />
+      <ChatInput onSend={onSend} onSendVoice={onSendVoice} disabled={isTyping} />
     </div>
   )
 }

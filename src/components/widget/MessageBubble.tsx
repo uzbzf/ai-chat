@@ -37,6 +37,9 @@ export function MessageBubble({ message, agent }: Props) {
             isUser ? styles.bubbleUser : styles.bubbleAssistant
           }`}
         >
+          {message.source === 'voice' ? (
+            <span className={styles.voiceLabel}>Голос</span>
+          ) : null}
           {message.content}
         </div>
         <div

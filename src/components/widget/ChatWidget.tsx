@@ -24,6 +24,7 @@ export function ChatWidget() {
           onMinimize={chat.closeChat}
           onClose={chat.closeChat}
           onSend={chat.sendMessage}
+          onSendVoice={chat.sendVoice}
         />
       )}
       <ChatLauncher

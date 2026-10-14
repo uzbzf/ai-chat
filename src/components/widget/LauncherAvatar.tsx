@@ -6,6 +6,7 @@ type Props = {
 }
 
 function MinimalOperatorIcon() {
+  const stroke = 2.35
   return (
     <svg
       className={styles.launcherIcon}
@@ -14,32 +15,32 @@ function MinimalOperatorIcon() {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <circle cx="16" cy="12.5" r="4.5" stroke="currentColor" strokeWidth="1.75" />
-      <path
-        d="M8.5 14.5c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5"
+      <circle
+        cx="16"
+        cy="13.5"
+        r="5.75"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth={stroke}
+      />
+      <path
+        d="M8 17v3.5a2.6 2.6 0 002.6 2.6M24 17v3.5a2.6 2.6 0 01-2.6 2.6"
+        stroke="currentColor"
+        strokeWidth={stroke}
         strokeLinecap="round"
       />
       <path
-        d="M9.5 16v2.2a2.5 2.5 0 002.5 2.5h.5"
+        d="M8.5 17h-1.2a8.7 8.7 0 0115.4 0H24"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth={stroke}
         strokeLinecap="round"
       />
       <path
-        d="M22.5 16v2.2a2.5 2.5 0 01-2.5 2.5h-.5"
+        d="M21 21h6"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth={stroke}
         strokeLinecap="round"
       />
-      <path
-        d="M20 19.8h5.2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <circle cx="25.6" cy="19.8" r="1.25" fill="currentColor" />
+      <circle cx="27.25" cy="21" r="1.75" fill="currentColor" />
     </svg>
   )
 }

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { fetchAssistantReply } from '../api/chatClient'
+import { fetchAssistantReply, fetchAssistantReplyFromVoice } from '../api/chatClient'
 import { mockAgent } from '../mocks/agent.mock'
 import { getConversationById } from '../mocks/conversations.mock'
 import type { Message } from '../types/chat'
@@ -74,7 +74,7 @@ export function useChat() {
       setIsTyping(true)
 
       try {
-        const replyText = await fetchAssistantReply(trimmed)
+        const replyText = await fetchAssistantReply(trimmed, messages)
         const assistantMessage: Message = {
           id: createId('assistant'),
           role: 'assistant',
@@ -86,11 +86,95 @@ export function useChat() {
         if (!isOpen) {
           setUnreadCount((c) => c + 1)
         }
+      } catch (err) {
+        const detail =
+          err instanceof Error ? err.message : 'Не удалось получить ответ'
+        const assistantMessage: Message = {
+          id: createId('assistant'),
+          role: 'assistant',
+          content: `Извините, сейчас не могу ответить: ${detail}`,
+          createdAt: new Date().toISOString(),
+          status: 'sent',
+        }
+        setMessages((prev) => [...prev, assistantMessage])
       } finally {
         setIsTyping(false)
       }
     },
-    [isTyping, isOpen],
+    [isTyping, isOpen, messages],
+  )
+
+  const sendVoice = useCallback(
+    async (blob: Blob) => {
+      if (isTyping || blob.size < 800) return
+
+      const userId = createId('user')
+      const userMessage: Message = {
+        id: userId,
+        role: 'user',
+        content: 'Голосовое сообщение…',
+        createdAt: new Date().toISOString(),
+        status: 'sending',
+        source: 'voice',
+      }
+
+      setMessages((prev) => [...prev, userMessage])
+      setIsTyping(true)
+
+      try {
+        const { transcript, reply } = await fetchAssistantReplyFromVoice(
+          blob,
+          messages,
+        )
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === userId
+              ? {
+                  ...m,
+                  content: transcript || 'Голосовое сообщение',
+                  status: 'sent',
+                }
+              : m,
+          ),
+        )
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: createId('assistant'),
+            role: 'assistant',
+            content: reply,
+            createdAt: new Date().toISOString(),
+            status: 'sent',
+          },
+        ])
+        if (!isOpen) {
+          setUnreadCount((c) => c + 1)
+        }
+      } catch (err) {
+        const detail =
+          err instanceof Error ? err.message : 'Не удалось распознать голос'
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === userId
+              ? { ...m, content: 'Голосовое не отправлено', status: 'sent' }
+              : m,
+          ),
+        )
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: createId('assistant'),
+            role: 'assistant',
+            content: `Извините, не получилось обработать голосовое: ${detail}`,
+            createdAt: new Date().toISOString(),
+            status: 'sent',
+          },
+        ])
+      } finally {
+        setIsTyping(false)
+      }
+    },
+    [isTyping, isOpen, messages],
   )
 
   return {
@@ -103,6 +187,7 @@ export function useChat() {
     closeChat,
     toggleChat,
     sendMessage,
+    sendVoice,
     agent: mockAgent,
   }
 }

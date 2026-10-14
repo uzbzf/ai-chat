@@ -8,6 +8,7 @@ export interface Message {
   content: string
   createdAt: string
   status?: MessageStatus
+  source?: 'text' | 'voice'
 }
 
 export interface Conversation {
