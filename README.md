@@ -38,6 +38,16 @@ npm run preview
 
 Backend для продакшена: `npm run start:server` (нужны переменные из `.env`).
 
+## Деплой на Vercel
+
+1. Импортируйте репозиторий на [vercel.com](https://vercel.com) или CLI: `vercel --prod`
+2. Переменные окружения в проекте Vercel:
+   - `GEMINI_API_KEY` — обязательно (сервер)
+   - `GEMINI_MODEL` — опционально (`gemini-3.5-flash`)
+   - `WORKSHOP_PHONE`, `VITE_WORKSHOP_PHONE` — телефон мастерской
+   - `VITE_USE_MOCKS` = `false`
+3. API доступно как `/api/chat` и `/api/health` на том же домене, что и виджет.
+
 ## Dev: история из моков
 
 `?seed=conv-2` в URL — подставить сообщения из мок-диалога.
